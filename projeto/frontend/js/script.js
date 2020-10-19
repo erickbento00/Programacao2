@@ -13,15 +13,20 @@ $(function() {
       });
       function listAnimals (animals) {
     
-          $('#tableContentAnimals').empty();
-          showContent("tableAnimals");     
-          for (var i in animals) { 
-              line = '<tr>' + 
-              '<td>' + animals[i].animal_type + '</td>' + 
-              '<td>' + animals[i].code + '</td>' + 
-              '<td>' + animals[i].medicine + '</td>' + 
-              '</tr>';
-              $('#tableContentAnimals').append(line);
+        $('#tableContentAnimals').empty();
+        showContent("tableAnimals");     
+        for (var i in animals) { 
+            line = `<tr id="line_${animals[i].id}">  
+            <td> ${animals[i].animal_type} </td>
+            <td> ${animals[i].code} </td>
+            <td> ${animals[i].medicine} </td>
+            <td>
+            <a href=# id="${animals[i].id}" class ="delete_animal">
+                <p class="badge badge-danger">excluir</p>
+            </a>
+            </td>
+            </tr>`;
+            $('#tableContentAnimals').append(line);
           }
       }
   }
@@ -75,5 +80,31 @@ $(function() {
       }
   });
 
+  $(document).on("click", ".delete_animal", function() {
+    var idAnimal = $(this).attr("id");
+    $.ajax({
+      url: `http://localhost:5000/delete_animal/${idAnimal}`,
+      type: "DELETE",
+      dataType: 'json',
+      success: deleteAnimal,
+      error: deleteError
+    });
+
+    function deleteAnimal(returnedData) {
+      if (returnedData.result === "ok") {
+        $(`#line_${idAnimal}`).fadeOut(0, () => {
+        alert("Animal excluido com sucesso")
+        });
+      } else {
+        alert(`ERROR: ${returnedData.result}: ${returnedData.datails}`);
+      }
+    }
+
+    function deleteError(returnedData) {
+      alert("Error: Search on back-end");
+    }
+  });
+
   showContent("initContent");
 });
+

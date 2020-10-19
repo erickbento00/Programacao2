@@ -29,3 +29,15 @@ def create_animal():
 
     response.headers.add("Access-Control-Allow-Origin", "*")
     return response
+
+
+@app.route("/delete_animal/<int:animal_id>", methods=['DELETE'])
+def delete_animal(animal_id):
+    response = jsonify({"result": "ok", "details": "ok"})
+    try:
+        Animal.query.filter(Animal.id == animal_id).delete()
+        db.session.commit()
+    except Exception as e:
+        response = jsonify({"result":"error", "details": str(e)})
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    return response
