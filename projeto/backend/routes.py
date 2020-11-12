@@ -1,11 +1,11 @@
 from config import *
-from model import Animal
+from model import Animal, Medicine, Recipe
 
 
 @app.route("/")
 def main():
     return "Se liga no meu veterinario" +\
-        '<a href="/index_veterinario"> Olha os animais cadastrados aqui</a>'
+        '<a href="/index_animals"> Olha os animais cadastrados aqui</a>'
 
 @app.route("/index_animals")
 def index_animals():
