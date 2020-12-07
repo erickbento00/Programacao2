@@ -5,8 +5,6 @@ class Animal(db.Model):
     animal_type = db.Column(db.String(254))
     code = db.Column(db.String(254))
 
-    recipe_animal = db.relationship("Recipe", back_populates="animal_recipe")
-
     def __str__(self):
         return f"{self.id}, {self.animal_type}, " + \
             f"{self.code}"
@@ -23,8 +21,6 @@ class Medicine(db.Model):
     code = db.Column(db.String(254))
     name_medicine = db.Column(db.String(254), nullable=False)
     producer = db.Column(db.String(254), nullable=False)
-
-    recipe_medicine = db.relationship("Recipe", back_populates="medicine_recipe")
 
     def __str__(self):
        return f"{self.id}, {self.name_medicine}, " + \
@@ -45,13 +41,13 @@ class Recipe(db.Model):
     description = db.Column(db.String(254))
 
     animal_id = db.Column(db.Integer, db.ForeignKey(Animal.id), nullable=False)
-    animal_recipe = db.relationship("Animal", back_populates="recipe_animal")
+    animal = db.relationship("Animal")
     medicine_id = db.Column(db.Integer, db.ForeignKey(Medicine.id), nullable=False)
-    medicine_recipe = db.relationship("Medicine", back_populates="recipe_medicine")
+    medicine = db.relationship("Medicine")
 
     def __str__(self):
         return f"{self.quantity_medicine}, {self.description}, " + \
-            f"{self.animal_id}, {self.animal_recipe}, {self.medicine_id}, {self.medicine_recipe}"
+            f"{self.animal_id}, {self.animal}, {self.medicine_id}, {self.medicine}"
 
     def json(self):
         return {
@@ -59,9 +55,9 @@ class Recipe(db.Model):
             "quantity_medicine":self.quantity_medicine,
             "description":self.description,
             "animal_id":self.animal_id,
-            "animal_recipe":self.animal_recipe.json(),
+            "animal":self.animal.json(),
             "medicine_id":self.medicine_id,
-            "medicine_recipe":self.medicine_recipe.json()
+            "medicine":self.medicine.json()
         }
 
 #teste
@@ -78,7 +74,7 @@ if __name__ == "__main__":
     db.session.add(m1)
 
     r1 = Recipe(quantity_medicine="2", description="Ele sente muita coceira",
-        animal_recipe=a1, medicine_recipe=m1)
+        animal=a1, medicine=m1)
     db.session.add(r1)
 
     db.session.commit()

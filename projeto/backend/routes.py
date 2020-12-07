@@ -41,3 +41,19 @@ def delete_animal(animal_id):
         response = jsonify({"result":"error", "details": str(e)})
     response.headers.add("Access-Control-Allow-Origin", "*")
     return response
+
+@app.route("/index_medicines")
+def index_medicines():
+    medicines = db.session.query(Medicine).all()
+    json_medicines = [ medicine.json() for medicine in medicines ]
+    response = jsonify(json_medicines)
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    return response
+
+@app.route("/index_recipes")
+def index_recipes():
+    recipes = db.session.query(Recipe).all()
+    json_recipes = [ recipe.json() for recipe in recipes ]
+    response = jsonify(json_recipes)
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    return response

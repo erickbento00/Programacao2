@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="utf-8">
@@ -14,16 +14,28 @@
     <div class="container">
 
         <nav class="navbar navbar-expand-lg navbar-light bg-light mt-2">
+            <span class="navbar-text">Cadastro de Animais</span>
 
-            
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <div class="navbar-nav mr-auto">
-                    <span class="navbar-text">Cadastro de Animais</span>
-                    <a class="nav-item nav-link" href="#" id="linkHome">Início</a>
-                    <a class="nav-item nav-link" href="#" id="linkIndexAnimals">Listar</a>
-                    <a class="nav-item nav-link" data-toggle="modal" 
-                        data-target="#modalCreateAnimal" href="#">Incluir</a>
-                </div>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="linkHome">Início</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownRegisters"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                        >
+                            Cadastros
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownRegisters">
+                            <a class="dropdown-item" href="#" id="linkIndexAnimals">Animais</a>
+                            <a class="dropdown-item" href="#" id="linkIndexMedicines">Medicamentos</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="linkIndexRecipes">Receitas</a>
+                    </li>
+                </ul>
             </div>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -35,7 +47,7 @@
 
         <div id="pageBody">
 
-            <div id="initContent" class="invisible">
+            <div id="initContent">
                 Bem vindo ao cadastro de Animais.
             </div>
 
@@ -63,12 +75,6 @@
                                         aria-describedby="codeHelp" placeholder="007">
                                     <small id="codeHelp" class="form-text text-muted">Informe o código do animal.</small>
                                 </div>
-                                <div class="form-group">
-                                    <label for="imputMedicine">Medicamento</label>
-                                    <input type="text" class="form-control" id="imputMedicine"
-                                        aria-describedby="medicineHelp" placeholder="Anti-pugas">
-                                    <small id="medicineHelp" class="form-text text-muted">Informe o medicamento do animal.</small>
-                                </div>
                             </form>
                         </div>
 
@@ -80,19 +86,55 @@
                 </div>
             </div>
 
-            <table class="table invisible table-striped table-hover" id="tableAnimals">
-                <thead>
-                    <tr>
-                        <th scope="col">Tipo</th>
-                        <th scope="col">Codigo</th>
-                        <th scope="col">Medicamento</th>
-                        <th scope="col">Operação</th>
-                    </tr>
-                </thead>
-                <tbody id="tableContentAnimals">
-                </tbody>
-            </table>
+            <div class="container" id="animals">
+                <table class="table table-striped table-hover" id="tableAnimals">
+                    <thead>
+                        <tr>
+                            <th scope="col">Tipo</th>
+                            <th scope="col">Código</th>
+                            <th scope="col">Operação</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableContentAnimals">
+                    </tbody>
+                </table>
 
+                <div class="d-flex container justify-content-end">
+                    <a class="nav-item nav-link text-dark" href="#" data-toggle="modal" data-target="#modalCreateAnimal">Incluir +</a>
+                </div>
+            </div>
+
+            <div class="container" id="medicines">
+                <table class="table table-striped table-hover" id="tableMedicines">
+                    <thead>
+                        <tr>
+                            <th scope="col">Código</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Produtor</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableContentMedicines">
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="container" id="recipes">
+                <table class="table table-striped table-hover" id="tableRecipes">
+                    <thead>
+                        <tr>
+                            <th scope="col">Quantidade</th>
+                            <th scope="col">Descrição</th>
+                            <th scope="col">Tipo</th>
+                            <th scope="col">Código do Animal</th>
+                            <th scope="col">Código do Medicamento</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Produtor</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableContentRecipes">
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
